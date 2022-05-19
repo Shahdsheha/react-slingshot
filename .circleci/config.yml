@@ -13,8 +13,7 @@ jobs:
       - checkout 
       - run: npm 1
       - save_cache:
-          key:
-            - "npm packages"
+          key: "npm packages"
           paths:
             - /src/node_module
       - run: npm run list

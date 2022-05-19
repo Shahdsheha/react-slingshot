@@ -6,7 +6,49 @@ orbs:
   welcome: circleci/welcome-orb@0.4.1
 #     # Orchestrate or schedule a set of jobs
 jobs:
+  build:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout 
+      - run: npm 1
+      - save_cashe:
+          key:
+            - "npm packages"
+          paths:
+            - /src/node_module
+      - run: npm run list
+
+  test:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cashe:
+          keys:
+            - "npm packages"
+      - run: npm 1
+      - run: npm run test
+
+  analyze:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cashe:
+          keys:
+            - "npm packages"
+      - run: npm 1
+      - run : npm audit
 
 workflow:
   code_stages:
     jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - analyze:
+          requires:
+            - test
+

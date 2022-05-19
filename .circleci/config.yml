@@ -41,7 +41,7 @@ jobs:
       - run: npm 1
       - run : npm audit
 
-workflow:
+workflows:
   code_stages:
     jobs:
       - build

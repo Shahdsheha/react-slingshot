@@ -11,7 +11,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout 
-      - run: npm 1
+      - run: npm i
       - save_cache:
           key: "npm packages"
           paths:
@@ -26,7 +26,7 @@ jobs:
       - restore_cache:
           keys:
             - "npm packages"
-      - run: npm 1
+      - run: npm i
       - run: npm run test
 
   analyze:
@@ -37,7 +37,7 @@ jobs:
       - restore_cache:
           keys:
             - "npm packages"
-      - run: npm 1
+      - run: npm i
       - run : npm audit
 
 workflows:
